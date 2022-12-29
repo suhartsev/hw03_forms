@@ -4,7 +4,7 @@
 {% endblock %}
 {% block content %}   
   <h1>Все посты пользователя {{ author.get_full_name }} </h1>
-  <h3>Всего постов: {{ post_number }} </h3>
+  <h3>Всего постов: {{ author.posts.count }} </h3>
 {% for post in page_obj %}
 <article>
   <ul>
@@ -16,7 +16,7 @@
   <a href="{% url 'posts:post_detail' post.pk %}">подробная информация </a> <br>
 </article>
   {% if post.group %}   
-    <a href="{% url 'posts:group_list' post.group.slug %}">все записи группы</a>
+    <a href="{% url 'posts:group_list' post.group.slug %}">все записи группы: {{ post.group }}</a>
   {% endif %} 
   {% if not forloop.last %}<hr>{% endif %}
 {% endfor %}

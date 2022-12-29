@@ -8,23 +8,11 @@
         {% if is_edit %}Редактировать запись{% else %}Новый пост{% endif %}             
       </div>
       <div class="card-body">
+        {% include 'includes/errors.html' %}
         <form method="post" action="{{ request.get_full_path }}">
           {% csrf_token %}
           {% for field in form %}
-          <div class="form-group row my-3 p-3">
-            <label for="{{ field.id_for_label }}">
-              {{ field.label }}
-              {% if field.field.required %}
-                <span class="required text-danger">*</span>
-              {% endif %}
-            </label>    
-            {{ field }}
-            {% if field.help_text %}
-              <small id="{{ field.id_for_label }}-help" class="form-text text-muted">
-                {{ field.help_text|safe }}
-              </small>
-            {% endif %}
-          </div>
+          {% include 'includes/forms.html' %}
           {% endfor %}
           <div class="d-flex justify-content-end">
             <button type="submit" class="btn btn-primary">
@@ -41,9 +29,3 @@
   </div>
 </div>
 {% endblock %}
-{% comment "" %}
-Этот вариант кода я частично подглядел, не мог вывести select- выбор групп,
-полез в интернет и потихоньку собрал так, вроде всё понятно, читал документацию
-про help_text, get_full_path, id_for_label. Но надо еще подучить
-Надеюсь в следующих уроках, что-то будет))
-{% endcomment %}
