@@ -1,4 +1,5 @@
 from django.shortcuts import get_object_or_404, render, redirect
+from django.contrib.auth.decorators import login_required
 
 from .forms import PostForm
 from .models import Post, Group, User
@@ -39,6 +40,7 @@ def profile(request, username):
     )
 
 
+@login_required
 def post_detail(request, post_id):
     post = get_object_or_404(Post, pk=post_id)
     return render(
@@ -48,6 +50,7 @@ def post_detail(request, post_id):
     )
 
 
+@login_required
 def post_create(request):
     form = PostForm(request.POST or None)
     if form.is_valid():
